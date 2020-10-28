@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+  http://www.springframework.org/schema/mvc 
+  http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd 
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 加载注解驱动 -->
+	<mvc:default-servlet-handler/>
+	<mvc:annotation-driven />
+	<context:annotation-config/>
+
+	<!-- 扫描所有包 这里要注意 写在这个配置文件是可以的 但是写的别的配置文件不生效 通配符 必须使用 . ** 要不然扫描所有的文件-->
+	<context:component-scan base-package="com.itheima.**"/>
+	<!--配置静态资源的访问映射，此配置中的文件，将不被前端控制器拦截 -->
+	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+	<mvc:resources location="/WEB-INF/fonts/" mapping="/fonts/**"/>
+	<mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
+	<mvc:resources location="/WEB-INF/layui_exts/" mapping="/layui_exts/**"/>
+	<mvc:resources location="/WEB-INF/layui/" mapping="/layui/**"/>
+
+	<!-- 配置视图解析器 -->
+	<bean class=
+    "org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+<!--	可以直接定位到login页面/**-->
+	<mvc:view-controller path="/" view-name="login"/>
+</beans>
